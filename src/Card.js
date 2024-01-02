@@ -11,6 +11,8 @@ function Card({name, image}) {
     yPos: Math.random() * 40 - 20
   });
 
+  console.log('Card Component State:', { angle, xPos, yPos });
+
   const transform = `translate(${xPos}px, ${yPos}px) rotate(${angle}deg)`;
 
   return <img className="Card"

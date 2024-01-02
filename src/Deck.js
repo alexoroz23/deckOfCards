@@ -19,6 +19,8 @@ function Deck() {
       let d = await axios.get(`${API_BASE_URL}/new/shuffle/`);
       setDeck(d.data);
     }
+
+    console.log('Deck Component Mounted');  // the component mounts
     getData();
   }, [setDeck]);
 
@@ -30,6 +32,8 @@ function Deck() {
 
       try {
         let drawRes = await axios.get(`${API_BASE_URL}/${deck_id}/draw/`);
+
+        console.log('API Response:', drawRes.data);  // useEffects for fetching data runs
 
         if (drawRes.data.remaining === 0) {
           setAutoDraw(false);
@@ -51,6 +55,9 @@ function Deck() {
       }
     }
 
+    console.log('AutoDraw:', autoDraw); 
+    console.log('Deck:', deck);
+
     if (autoDraw && !timerRef.current) {
       timerRef.current = setInterval(async () => {
         await getCard();
@@ -62,6 +69,8 @@ function Deck() {
       timerRef.current = null;
     };
   }, [autoDraw, setAutoDraw, deck]);
+
+  console.log('Drawn Cards:', drawn);
 
   const toggleAutoDraw = () => {
     setAutoDraw(auto => !auto);
